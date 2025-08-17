@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Món quà bí mật ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink-50:#fff0f5;
+  --pink-100:#ffe4ef;
+  --pink-200:#ffc8dc;
+  --pink-300:#ffa3c2;
+  --pink-400:#ff7aa7;
+  --pink-500:#ff4f8a;
+  --shadow:0 10px 30px rgba(255, 105, 180, .25);
+  --radius:24px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"Poppins", sans-serif;
+  color:#3a3a3a;
+  position: relative;
+  background: linear-gradient(270deg, rgba(255,228,239,0.6), rgba(255,200,220,0.6), rgba(255,122,167,0.6), rgba(255,79,138,0.6));
+  background-size: 800% 800%;
+  animation: gradientBG 20s ease infinite;
+  display:grid;
+  place-items:center;
+  overflow-x:hidden;
+}
+@keyframes gradientBG {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+.wrapper{
+  width:min(940px, 92vw);
+  display:grid;
+  gap:24px;
+  padding:28px 16px 40px;
+  position: relative;
+  z-index:1;
+}
+header{text-align:center;}
+.title{
+  font-weight:700;
+  font-size:clamp(28px, 4vw, 44px);
+  letter-spacing:.5px;
+  background: linear-gradient(90deg, #ff4f8a, #cc2b5e);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.subtitle{
+  margin-top:6px;
+  font-weight:500;
+  opacity:.75;
+}
+.card{
+  background:rgba(255, 255, 255, .85);
+  backdrop-filter: blur(10px);
+  border:1px solid #ffd3e3;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:22px;
+  position: relative;
+  z-index:1;
+}
+.gate{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  align-items:center;
+  gap:12px;
+}
+label{
+  font-weight:600;
+  font-size:14px;
+  margin-bottom:8px;
+  display:block;
+  color:#b31350;
+}
+.input{
+  grid-column:1 / -1;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  background:#fff;
+  border:1.5px solid #ffd0e6;
+  border-radius:18px;
+  padding:10px 12px;
+  transition:.2s ease;
+}
+.input:focus-within{ border-color: var(--pink-400); box-shadow:0 0 0 4px #ffd9ea; }
+.input input{
+  border:none; outline:none; width:100%; background:transparent;
+  font:600 15px Poppins, sans-serif; padding:6px 4px;
+}
+.btn{
+  appearance:none; border:none; outline:none; cursor:pointer;
+  padding:12px 18px; font-weight:700; border-radius:16px;
+  background:linear-gradient(135deg, var(--pink-400), var(--pink-500));
+  color:white; box-shadow:0 8px 20px rgba(255,79,138,.35);
+  transition: transform .15s ease, filter .2s ease;
+  text-decoration:none;
+  text-align:center;
+  display:inline-block;
+}
+.btn:hover{
+  filter:brightness(1.1);
+  transform: scale(1.05);
+}
+.btn:active{ transform:translateY(1px); }
+.row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+.muted{ font-size:13px; opacity:.7; }
+.error{ color:#d61f69; font-weight:600; min-height:20px; }
+.hidden{ display:none !important; }
+
+.video-wrap{
+  display:grid; gap:16px;
+}
+.video-card{
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  border:1px solid #ffd3e3;
+  padding:12px;
+  text-align:center;
+}
+
+.hearts{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
+}
+.heart{ position:absolute; bottom:-40px; font-size:14px; opacity:.65; animation: floatUp 12s linear infinite; }
+@keyframes floatUp{
+  0%{ transform: translateY(0) translateX(0) rotate(0deg); opacity:.0; }
+  10%{ opacity:.7; }
+  100%{ transform: translateY(-120vh) translateX(var(--x, 0)) rotate(360deg); opacity:0; }
+}
+
+footer{ text-align:center; font-size:12px; opacity:.6; margin-top:6px; }
+a { color:#cc2b5e; font-weight:600; text-decoration:none; }
+</style>
+</head>
+<body>
+
+<div class="hearts" aria-hidden="true"></div>
+
+<main class="wrapper">
+  <header>
+    <h1 class="title">Món quà bí mật</h1>
+    <p class="subtitle">Nhập mật khẩu để mở khóa và xem món quà bí mật 💖</p>
+  </header>
+
+  <section id="gate-card" class="card">
+    <label for="pwd">Mật khẩu</label>
+    <div class="gate">
+      <div class="input" id="inputWrap">
+        <span aria-hidden="true">🔒</span>
+        <input id="pwd" type="password" placeholder="Nhập mật khẩu..." autocomplete="current-password" />
+        <button class="btn" id="toggle">👀</button>
+      </div>
+      <div class="row" style="justify-content:space-between; width:100%">
+        <label class="row muted" style="gap:8px;cursor:pointer;">
+          <input type="checkbox" id="remember" /> Nhớ mật khẩu trên máy này
+        </label>
+        <button class="btn" id="unlock">Mở khóa</button>
+      </div>
+      <div id="err" class="error" role="status"></div>
+    </div>
+    <p class="muted" style="margin-top:8px">Gợi ý: sinh nhật của bé Khuê đáng yêu (8 số) 🌹</p>
+  </section>
+
+  <section id="video-area" class="video-wrap hidden" aria-live="polite">
+    <div class="card" style="background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.85)); position:relative;">
+      <h2 style="margin:0 0 6px 0;">Món quà bí mật ✨</h2>
+      <p class="muted" style="margin:0 0 12px 0;">Chúc chị nhận quà vui vẻ!</p>
+      <div class="video-card">
+        <p>🎉 Chúc mừng! Nhấn vào nút dưới để khui quà bí mật:</p>
+        <a href="https://drive.google.com/file/d/1a8WouiQM8p5XnJkEouSzd2ElKW3XsV1J/preview" target="_blank" class="btn">Khui quà</a>
+      </div>
+      <div class="row" style="justify-content:flex-end; margin-top:10px;">
+        <button class="btn" id="lockBack">Khoá lại</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>Made with 💗. Lưu ý: khoá này mang tính chất kiểm tra độ quan tâm bé Khuê.</footer>
+</main>
+
+<script>
+const PASSWORD = "20032005";
+const gateCard = document.getElementById('gate-card');
+const pwdInput = document.getElementById('pwd');
+const toggleBtn = document.getElementById('toggle');
+const unlockBtn = document.getElementById('unlock');
+const rememberCb = document.getElementById('remember');
+const errText = document.getElementById('err');
+const videoArea = document.getElementById('video-area');
+const lockBack = document.getElementById('lockBack');
+
+// Tim + sparkle
+const hearts = document.querySelector('.hearts');
+let heartInterval;
+
+function spawnHeart(){
+  const span = document.createElement('span');
+  span.className = 'heart';
+  const symbols = ['❤','💗','💖','💞','💕','🌸','✨','💯', '💟', '🎉', '🎊', '🎂', '🍨', '🍰', '🧁' ];
+  span.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+  span.style.left = Math.random()*100 + 'vw';
+  span.style.setProperty('--x', (Math.random()*120 - 60) + 'px');
+  span.style.animationDuration = (8 + Math.random()*8) + 's';
+  span.style.fontSize = (12 + Math.random()*18) + 'px';
+  hearts.appendChild(span);
+  setTimeout(()=> hearts.removeChild(span), 16000);
+}
+
+function startHearts(){
+  hearts.style.display='block';
+  if(!heartInterval) heartInterval = setInterval(spawnHeart, 800);
+}
+
+// Khởi chạy tim ngay khi load
+document.addEventListener('DOMContentLoaded', ()=>{
+  startHearts();
+});
+
+toggleBtn.addEventListener('click', (e)=>{
+  e.preventDefault();
+  const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  pwdInput.setAttribute('type', type);
+  toggleBtn.textContent = type === 'password' ? '👀' : '🙈';
+  pwdInput.focus();
+});
+
+function showError(msg){
+  errText.textContent = msg; 
+  pwdInput.classList.remove('shake');
+  requestAnimationFrame(()=> pwdInput.classList.add('shake'));
+}
+
+function unlock(){
+  const value = (pwdInput.value || '').trim();
+  if(!value){ showError('Bạn chưa nhập mật khẩu ✨'); return; }
+  if(value === PASSWORD){
+    errText.textContent = '';
+    gateCard.classList.add('hidden');
+    videoArea.classList.remove('hidden');
+    if(rememberCb.checked){ localStorage.setItem('pinkGate', 'ok'); }
+    setTimeout(()=> videoArea.scrollIntoView({behavior:'smooth'}), 50);
+  }else{
+    showError('Sai mật khẩu rồi nè 💔');
+  }
+}
+
+unlockBtn.addEventListener('click', unlock);
+pwdInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ unlock(); } });
+
+lockBack.addEventListener('click', ()=>{
+  videoArea.classList.add('hidden');
+  gateCard.classList.remove('hidden');
+  pwdInput.value='';
+  pwdInput.focus();
+  localStorage.removeItem('pinkGate');
+});
+
+// Nếu đã nhớ mật khẩu
+if(localStorage.getItem('pinkGate')==='ok'){
+  gateCard.classList.add('hidden');
+  videoArea.classList.remove('hidden');
+}
+</script>
+</body>
+</html>
